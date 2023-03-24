@@ -4,7 +4,8 @@
 
 ## Project Architecture
 
-![suibianwanwanDb](C:\Users\admin\Desktop\suibianwanwanDb.png)
+![suibianwanwanDb](
+https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/suibianwanwan.png)
 
 ## Overview
 
@@ -31,15 +32,19 @@
 
 First clone the file and run it, if it is not jdk17, modify the compilation properties in the pom file,If there is a need for port, page size, data path, etc., you can configure it in the yml file.
 
-![image-20230325005820100](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20230325005820100.png)
+![image-20230325005820100](
+https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/1.png
+)
 
 When you see the following code, it means that the http service starts successfully
 
-![image-20230325005944508](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20230325005944508.png)
+![image-20230325005944508](
+https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/2.png)
 
 Use json format to send post requests to write sql statements in sql to execute commands
 
-![image-20230325010531959](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20230325010531959.png)
+![image-20230325010531959](
+https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/3.png)
 
 
 
