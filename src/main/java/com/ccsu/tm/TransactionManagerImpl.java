@@ -13,6 +13,9 @@ import java.nio.channels.FileChannel;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * The transaction manager is used to record the status of transactions
+ */
 public class TransactionManagerImpl implements TransactionManager{
     public static final long SUPER_XID=0;
 
@@ -48,10 +51,10 @@ public class TransactionManagerImpl implements TransactionManager{
         try {
             fileLen = file.length();
         } catch (IOException e1) {
-//            Panic.panic(Error.BadXIDFileException);
+            Panic.panic(Error.BadXIDFileException);
         }
         if(fileLen < LEN_XID_HEADER_LENGTH) {
-//            Panic.panic(Error.BadXIDFileException);
+            Panic.panic(Error.BadXIDFileException);
         }
 
         ByteBuffer buf = ByteBuffer.allocate(LEN_XID_HEADER_LENGTH);
@@ -64,8 +67,7 @@ public class TransactionManagerImpl implements TransactionManager{
         this.xidCounter = Parser.parseLong(buf.array());
         long end = getXidPosition(this.xidCounter + 1);
         if(end != fileLen) {
-//            Panic.panic(Error.BadXIDFileException);
-            System.out.println("程序错误");
+            Panic.panic(Error.BadXIDFileException);
         }
     }
 
@@ -89,7 +91,7 @@ public class TransactionManagerImpl implements TransactionManager{
             raf = new RandomAccessFile(f, "rw");
             fc = raf.getChannel();
         } catch (FileNotFoundException e) {
-
+            throw Error.FileExistsException;
         }
 
         // 写空XID文件头
@@ -155,8 +157,7 @@ public class TransactionManagerImpl implements TransactionManager{
             fc.position(offset);
             fc.read(buf);
         } catch (IOException e) {
-
-            //
+            Panic.panic(e);
         }
         return buf.array()[0] == status;
     }
@@ -172,12 +173,12 @@ public class TransactionManagerImpl implements TransactionManager{
             fc.position(0);
             fc.write(buf);
         } catch (IOException e) {
-
+            Panic.panic(e);
         }
         try {
             fc.force(false);
         } catch (IOException e) {
-
+            Panic.panic(e);
         }
     }
 
@@ -232,7 +233,7 @@ public class TransactionManagerImpl implements TransactionManager{
             fc.close();
             file.close();
         } catch (IOException e) {
-
+            Panic.panic(e);
         }
     }
 
@@ -263,8 +264,7 @@ public class TransactionManagerImpl implements TransactionManager{
             fc.position(position);
             fc.write(ByteBuffer.wrap(bytes));
         }catch (IOException e){
-//            throw Error.IO
-
+            throw Error.FileWriteException;
         }finally {
             lock.unlock();
         }

@@ -1,9 +1,11 @@
 package com.ccsu.common;
 
 public class Error {
-    public static final Exception NullEntryException = new RuntimeException("Null entry!");
+    public static final Exception NullEntryException = new RuntimeException("Null Entry!");
+    public static final Exception BadXIDFileException = new RuntimeException("Bad Xid File!");
+    public static final Exception FileReadException = new RuntimeException("Wrong Read!");
 
-    public static final Exception WrongUpdateException= new RuntimeException("wrong update");
+    public static final Exception WrongUpdateException= new RuntimeException("Wrong Update");
     public static final Exception DeadLockException= new RuntimeException("Dead Lock");
 
     public static final Exception InvalidCommandException = new RuntimeException("Invalid command!");

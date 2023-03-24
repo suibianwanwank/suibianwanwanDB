@@ -11,14 +11,13 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class LockManager {
-    //xid拥有的多个uid资源
+    //Multiple UID resources owned by xid
     private Map<Long, List<Long>> x3u;
-    //uid正被xid所持有
+    //UID is being held by XID
     private Map<Long,Long> u1x;
-    //正在等待uid的多个xid
+    //Multiple xids waiting for UIDs
     private Map<Long,List<Long>> waitu3x;
-    //xid正在等待的uid
-//    private Map<Long, Long> wait;
+
 
     private Condition condition ;
 
@@ -28,22 +27,21 @@ public class LockManager {
         x3u=new HashMap<>();
         u1x=new HashMap<>();
         waitu3x=new HashMap<>();
-//        wait=new HashMap<>();
+
         lock=new ReentrantLock();
         condition= lock.newCondition();
     }
 
     public void add(long xid,long uid) throws Exception{
         lock.lock();
-        System.out.println(xid+"尝试获取获取"+uid);
         try {
-            //1.如果已经获得该资源
+            //1.If the thread already holds the lock
             if(x3u.containsKey(xid)&&x3u.get(xid).contains(uid)){
                 return ;
             }
-            //2.如果该线程未被其他线程持有
+            //2.If no thread is already holding the lock
             if(!u1x.containsKey(uid)){
-                //让他持有这个对象
+
                 if(!x3u.containsKey(xid)){
                     x3u.put(xid,new ArrayList<Long>());
                 }
@@ -51,26 +49,17 @@ public class LockManager {
                 x3u.get(xid).add(uid);
                 return ;
             }
-
-            //3.如果该线程正被其他线程持有
-                //进入定时等待，等待唤醒,如果超时回滚线程
-                //如果没有超时被唤醒，获取该资源并继续执行
-            //首先判断等待是否会产生死锁，如果会
-
-            //如果不会进入等待队列
+            //3.
             if(!waitu3x.containsKey(uid)){
                 waitu3x.put(uid,new ArrayList<>());
             }
 
             waitu3x.get(uid).add(xid);
-//            wait.put(xid,uid);
+            //Determine if a deadlock will occur
             if(willDeadLock(xid)){
-                //产生死锁
-                System.out.println("发生死锁问题，抛出异常");
                 throw Error.DeadLockException;
             }
 
-            System.out.println(xid+"进入"+uid+"的等待队列");
             condition.await();
             waitu3x.get(uid).remove(xid);
 
@@ -86,7 +75,10 @@ public class LockManager {
 
     }
 
-
+    /**
+     * Release all resources held by the transaction
+     * @param xid
+     */
     public void remove(long xid){
         lock.lock();
         try{
@@ -107,6 +99,11 @@ public class LockManager {
 
     }
 
+    /**
+     * DFS traversal determines deadlocks
+     * @param xid
+     * @return
+     */
     private boolean willDeadLock(long xid) {
 
         Map<Long,Boolean> map=new HashMap<>();

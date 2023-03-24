@@ -34,7 +34,7 @@ public class DataManagerImpl extends AbstractCache<DataItem> implements DataMana
     RedoLogManager redoLogManager;
 
     public DataManagerImpl(PageCache pc,RedoLogManager redoLogManager) {
-        super(0);
+        super(30);
         this.pc = pc;
         this.redoLogManager=redoLogManager;
         this.pIndex = new PageIndex();
@@ -43,10 +43,7 @@ public class DataManagerImpl extends AbstractCache<DataItem> implements DataMana
 
     public static DataManager create(String path, long mem,RedoLogManager redoLogManager) {
         PageCache pc = PageCacheImpl.create(path, mem);
-//        Logger lg = Logger.create(path);
-
         DataManagerImpl dm = new DataManagerImpl(pc,redoLogManager);
-
         dm.initPageOne();
         return dm;
     }

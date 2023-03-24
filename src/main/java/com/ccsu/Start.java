@@ -1,37 +1,62 @@
 package com.ccsu;
 
+import com.ccsu.config.Config;
+import com.ccsu.config.YMLConfig;
 import com.ccsu.dm.DataManager;
 import com.ccsu.dm.DataManagerImpl;
 import com.ccsu.http.HttpServer;
 import com.ccsu.log.RedoLogManager;
 import com.ccsu.log.UndoLogManager;
+import com.ccsu.tb.Booter;
 import com.ccsu.tb.TableManager;
 import com.ccsu.tb.TableManagerImpl;
 import com.ccsu.tm.TransactionManager;
 import com.ccsu.tm.TransactionManagerImpl;
 import com.ccsu.vm.VersionManager;
 import com.ccsu.vm.VersionManagerImpl;
+import org.yaml.snakeyaml.Yaml;
+
+import java.io.File;
 
 public class Start {
 
-    public static final long DEFAULT_MEM = (1<<20)*64;
+
+
 
     public static void main(String[] args) throws Exception {
-
-        TableManager tbm=create();
-        HttpServer server=new HttpServer(tbm,8080);
+        HttpServer server=new HttpServer(init(),Config.PORT);
         server.start();
-
     }
 
     public static TableManager create() throws Exception {
-        String path="D://db//mydata";
-        UndoLogManager undoLogManager = UndoLogManager.create(path);
-        RedoLogManager redoLogManager = RedoLogManager.create(path);
-        DataManager dm = DataManagerImpl.create(path, DEFAULT_MEM,redoLogManager);
-        TransactionManager tm = TransactionManagerImpl.create(path);
+        UndoLogManager undoLogManager = UndoLogManager.create(Config.PATH);
+        RedoLogManager redoLogManager = RedoLogManager.create(Config.PATH);
+        DataManager dm = DataManagerImpl.create(Config.PATH, Config.MEM_SIZE,redoLogManager);
+        TransactionManager tm = TransactionManagerImpl.create(Config.PATH);
         VersionManager vm = new VersionManagerImpl(tm, dm,undoLogManager);
-        TableManager tbm = TableManagerImpl.create(vm,path, dm);
-        return tbm;
+        return TableManagerImpl.create(vm,Config.PATH, dm);
+
+    }
+
+    public static TableManager open() throws Exception {
+        UndoLogManager undoLogManager = UndoLogManager.open(Config.PATH);
+        RedoLogManager redoLogManager = RedoLogManager.open(Config.PATH);
+        TransactionManager tm = TransactionManagerImpl.open(Config.PATH);
+        DataManager dm = DataManagerImpl.open(Config.PATH,tm,Config.MEM_SIZE,redoLogManager);
+        VersionManager vm = new VersionManagerImpl(tm, dm,undoLogManager);
+        return TableManagerImpl.create(vm,Config.PATH, dm);
+    }
+
+    public static TableManager init(){
+        try {
+            File file=new File(Config.PATH+ Booter.BOOTER_SUFFIX);
+            if(!file.exists()){
+                return create();
+            }else{
+                return open();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

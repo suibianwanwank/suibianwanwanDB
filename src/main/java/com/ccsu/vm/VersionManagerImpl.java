@@ -19,14 +19,16 @@ import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-
+/**
+ *  Data versioning, using MVCC, snapshot read, and undo logs
+ *  for version control to complete data read, write and rollback
+ */
 public class VersionManagerImpl extends AbstractCache<Entry> implements VersionManager {
 
     TransactionManager tm;
     DataManager dm;
     Map<Long, Transaction> activeTransaction;
     Lock lock;
-
     LockManager lockManager;
 
     UndoLogManager undoLogManager;

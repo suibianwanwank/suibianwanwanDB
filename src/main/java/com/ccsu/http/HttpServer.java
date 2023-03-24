@@ -16,8 +16,6 @@ public class HttpServer {
 
 
     TableManager tbm;
-
-
     int port ;
 
     public HttpServer(TableManager tbm, int port) {

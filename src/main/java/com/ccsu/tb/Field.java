@@ -4,6 +4,7 @@ import com.ccsu.common.Error;
 import com.ccsu.tm.TransactionManagerImpl;
 import com.ccsu.tp.Type;
 import com.ccsu.utils.Bytes;
+import com.ccsu.utils.Panic;
 import com.ccsu.utils.ParseStringRes;
 import com.ccsu.utils.Parser;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +41,8 @@ public class Field {
             raw = ((TableManagerImpl)tb.tbm).vm.read(TransactionManagerImpl.SUPER_XID, uid,true);
 
         } catch (Exception e) {
-            log.error("读取失败");
+            Panic.panic(e);
+//            log.error("读取失败");
         }
         assert raw != null;
         return new Field(uid, tb).parseSelf(raw);

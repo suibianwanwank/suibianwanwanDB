@@ -3,12 +3,10 @@ package com.ccsu.statement;
 import java.util.Arrays;
 
 public class Insert {
+
     public String tableName;
 
-
-    //    public String[] filed;
     public String[] values;
-
 
     public String[] filedName;
 
