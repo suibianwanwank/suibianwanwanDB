@@ -1,6 +1,6 @@
 # SuibianwanwanDB
 
-​	**suibianwanwanDB ** is a simple relational database written in java. Most of the implementation refers to the implementation principle of mysql, and realizes the basic functions of mysql.
+​	*SuibianwanwanDB* is a simple relational database written in java. Most of the implementation refers to the implementation principle of mysql, and realizes the basic functions of mysql.
 
 ## Project Architecture
 
