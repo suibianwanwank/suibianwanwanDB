@@ -51,7 +51,8 @@ https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/3.png)
  Inserting a thousand data takes time (not using log caching leads to poor performance)
 
 ![image-1](https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/4.png)
- Searching one hundred data takes time
+ 
+Searching one hundred data takes time
 ![image-2](https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/5.png)
 ## Contributions
 suibianwanwan
