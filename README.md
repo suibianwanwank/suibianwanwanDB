@@ -26,6 +26,7 @@ https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/suibianwanwanDb.png)
 * Adding null lists and variable-length field lists
 * Adding Clustered Indexes
 * Adding log cache
+* Adding log cache
 
 
 
