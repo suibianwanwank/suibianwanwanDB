@@ -118,10 +118,10 @@ public class AllTest {
     public void test03() throws Exception {
         TableManager tableManager = open();
         Executor transaction=new Executor(0,tableManager);
-//        for(int i=120;i<1000;i++){
-//            String insert="insert into table1(a22,b22) values("+i+","+(i+1)+");";
-//            transaction.execute(insert.getBytes());
-//        }
+        for(int i=120;i<1000;i++){
+            String insert="insert into table1(a22,b22) values("+i+","+(i+1)+");";
+            transaction.execute(insert.getBytes());
+        }
         byte[] select = "select a22 from table1 where a22 > 5;".getBytes();
         Executor transaction1=new Executor(0,tableManager);
         byte[] execute = transaction1.execute(select);

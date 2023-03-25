@@ -31,7 +31,7 @@ public class Node {
 
     static final int NODE_HEADER_SIZE = AFTER_NODE_OFFSET + 8;
 
-    static final int BALANCE_NUMBER = 3;
+    static final int BALANCE_NUMBER = 1<<9;
 
     static final int NODE_SIZE = NODE_HEADER_SIZE + (2 * 8) * (BALANCE_NUMBER * 2 + 2);
 

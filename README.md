@@ -5,7 +5,7 @@
 ## Project Architecture
 
 ![suibianwanwanDb](
-https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/suibianwanwan.png)
+https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/suibianwanwanDb.png)
 
 ## Overview
 
@@ -25,6 +25,7 @@ https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/suibianwanwan.png)
 * Optimizing sql syntax parsing
 * Adding null lists and variable-length field lists
 * Adding Clustered Indexes
+* Adding log cache
 
 
 
@@ -46,8 +47,12 @@ Use json format to send post requests to write sql statements in sql to execute 
 ![image-20230325010531959](
 https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/3.png)
 
+## BenchMark
 
+ Inserting a thousand data takes time (not using log caching leads to poor performance)
 
+![image-1](https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/4.png)
+ Searching one hundred data takes time
+![image-2](https://suibianwanwan.oss-cn-hangzhou.aliyuncs.com/5.png)
 ## Contributions
-
 suibianwanwan

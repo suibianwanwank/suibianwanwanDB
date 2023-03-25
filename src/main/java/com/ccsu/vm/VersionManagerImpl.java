@@ -34,7 +34,7 @@ public class VersionManagerImpl extends AbstractCache<Entry> implements VersionM
     UndoLogManager undoLogManager;
 
     public VersionManagerImpl(TransactionManager tm, DataManager dm,UndoLogManager logManager) {
-        super(0);
+        super(100);
         this.tm = tm;
         this.dm = dm;
         this.activeTransaction = new HashMap<>();

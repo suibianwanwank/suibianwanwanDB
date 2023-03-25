@@ -12,7 +12,7 @@ public class PageManager {
 
     private static final short DATA_OFFSET = 4;
 
-    public static final int PAGE_SIZE = 1 << 13;
+    public static final int PAGE_SIZE = 1 << 15;
 
     public static final int MAX_FREE_SPACE = PAGE_SIZE-DATA_OFFSET;
 
