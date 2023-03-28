@@ -57,7 +57,7 @@ public class Tokenizer {
 
     private Byte peekByte(){
         if(pos==stat.length)return null;
-        return stat[pos];
+        return  stat[pos];
     }
     private String nextMetaState() throws Exception {
         while(true) {
@@ -122,7 +122,6 @@ public class Tokenizer {
 
     private void popByte() {
         pos++;
-        //TODO 观察未来有什么用
         if(pos > stat.length) {
             pos = stat.length;
         }
