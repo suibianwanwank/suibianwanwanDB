@@ -25,6 +25,7 @@ public class Parser {
                 case "update" -> parseUpdate(tokenizer);
                 case "delete" -> parseDelete(tokenizer);
                 case "rollback" ->parseRollback(tokenizer);
+                case "show" ->parseShow(tokenizer);
                 default -> throw Error.InvalidCommandException;
             };
         } catch(Exception e) {
@@ -46,6 +47,10 @@ public class Parser {
             throw statErr;
         }
         return stat;
+    }
+
+    private static Show parseShow(Tokenizer tokenizer) {
+        return new Show();
     }
 
     private static Update parseUpdate(Tokenizer tokenizer) throws Exception{

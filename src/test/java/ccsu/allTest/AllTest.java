@@ -17,7 +17,7 @@ import org.junit.Test;
 public class AllTest {
     public static final long DEFAULT_MEM = (1<<20)*64;
     private TableManager create() throws Exception {
-        String path="D://db//mydata";
+        String path="/Users/suibianwanwan/proj3/data";
         RedoLogManager redoLogManager=RedoLogManager.create(path);
         UndoLogManager undoLogManager = UndoLogManager.create(path);
         DataManager dm = DataManagerImpl.create(path, DEFAULT_MEM,redoLogManager);
@@ -28,7 +28,7 @@ public class AllTest {
     }
 
     private TableManager open() throws Exception {
-        String path="D://db//mydata";
+        String path="/Users/suibianwanwan/proj3/data";
         UndoLogManager undoLogManager = UndoLogManager.open(path);
         RedoLogManager redoLogManager = RedoLogManager.open(path);
 
@@ -53,6 +53,7 @@ public class AllTest {
         byte[] execute1 = executor.execute(test1.getBytes());
         byte[] execute2 = executor.execute(test2.getBytes());
         byte[] execute3 = executor.execute(test3.getBytes());
+
 
     }
 
@@ -104,8 +105,9 @@ public class AllTest {
     @Test
     public void test2() throws Exception {
         TableManager tableManager = open();
-        byte[] select = "select a22,b22 from table1 where a22 > 5;".getBytes();
+        byte[] select = "show".getBytes();
         Executor transaction1=new Executor(0,tableManager);
+        System.out.println("sda");
         byte[] execute = transaction1.execute(select);
         System.out.println(new String(execute));
     }

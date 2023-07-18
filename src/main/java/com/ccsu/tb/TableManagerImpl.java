@@ -1,5 +1,6 @@
 package com.ccsu.tb;
 
+import com.alibaba.fastjson.JSON;
 import com.ccsu.dm.DataManager;
 import com.ccsu.statement.*;
 import com.ccsu.utils.Parser;
@@ -68,11 +69,8 @@ public class TableManagerImpl implements TableManager{
     public byte[] show(long xid) {
         lock.lock();
         try {
-            StringBuilder sb = new StringBuilder();
-            for (Table tb : tableCache.values()) {
-                sb.append(tb.toString()).append("\n");
-            }
-            return sb.toString().getBytes();
+            String profile = JSON.toJSONString(tableCache);
+            return profile.getBytes();
         } finally {
             lock.unlock();
         }

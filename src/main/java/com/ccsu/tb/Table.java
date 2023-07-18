@@ -1,4 +1,5 @@
 package com.ccsu.tb;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.ccsu.common.Error;
 import com.ccsu.dm.DataItem;
 import com.ccsu.dm.DataManager;
@@ -7,6 +8,7 @@ import com.ccsu.tm.TransactionManagerImpl;
 import com.ccsu.tp.Type;
 import com.ccsu.tp.TypeFactory;
 import com.ccsu.utils.*;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -21,7 +23,6 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class Table {
-
     TableManager tbm;
 
     long uid;
@@ -472,5 +473,8 @@ public class Table {
         return sb.toString();
     }
 
+    public List<Field> getFields() {
+        return fields;
+    }
 
 }

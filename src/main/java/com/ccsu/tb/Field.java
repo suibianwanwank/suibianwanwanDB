@@ -7,6 +7,7 @@ import com.ccsu.utils.Bytes;
 import com.ccsu.utils.Panic;
 import com.ccsu.utils.ParseStringRes;
 import com.ccsu.utils.Parser;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -32,6 +33,18 @@ public class Field {
         this.fieldType=fieldType;
         this.index=index;
         this.tb=tb;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public String getFieldType() {
+        return fieldType;
+    }
+
+    public boolean getIndex() {
+        return index!=0;
     }
 
     public static Field loadField(Table tb, long uid) {
