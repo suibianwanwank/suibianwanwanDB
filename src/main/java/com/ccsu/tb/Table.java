@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
  * [Field1Uid][Field2Uid]...[FieldNUid]
  */
 @Slf4j
+@Data
 public class Table {
     TableManager tbm;
 

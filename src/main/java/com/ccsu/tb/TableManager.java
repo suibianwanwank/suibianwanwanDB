@@ -2,6 +2,8 @@ package com.ccsu.tb;
 
 import com.ccsu.statement.*;
 
+import java.util.List;
+
 public interface TableManager {
 
     public byte[] show(long xid);
@@ -22,5 +24,9 @@ public interface TableManager {
     byte[] update(long xid,Update update) throws Exception;
 
     public byte[] delete(long xid, Delete delete) throws Exception;
+
+    public Table getMetaData(String name);
+
+    public List<Table> getAllTable();
 
 }

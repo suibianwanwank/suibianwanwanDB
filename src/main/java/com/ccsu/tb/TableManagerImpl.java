@@ -8,10 +8,14 @@ import com.ccsu.vm.VersionManager;
 import lombok.extern.slf4j.Slf4j;
 import com.ccsu.common.Error;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
+
 @Slf4j
 public class TableManagerImpl implements TableManager{
 
@@ -119,6 +123,15 @@ public class TableManagerImpl implements TableManager{
         return ("delete " + count).getBytes();
     }
 
+    @Override
+    public Table getMetaData(String name) {
+        return tableCache.get(name);
+    }
+
+    @Override
+    public List<Table> getAllTable() {
+        return new ArrayList<>(tableCache.values());
+    }
 
 
     private Long firstTableUid() {
